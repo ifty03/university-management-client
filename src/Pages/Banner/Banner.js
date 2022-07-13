@@ -3,14 +3,14 @@ import banner from "../../Assets/Images/banner.jpg";
 
 const Banner = () => {
   return (
-    <section class="relative bg-black">
+    <section class="relative bg-slate-900">
       <img
         class="absolute inset-0 object-[75%] sm:object-[25%] object-cover w-full h-full opacity-25 sm:opacity-100"
         src={banner}
         alt="Couple on a bed with a dog"
       />
 
-      <div class="hidden sm:block sm:inset-0 sm:absolute sm:bg-gradient-to-r sm:from-black sm:to-transparent"></div>
+      <div class="hidden sm:block sm:inset-0 sm:absolute sm:bg-gradient-to-r sm:from-slate-900 sm:to-transparent"></div>
 
       <div class="relative max-w-screen-xl px-4 py-32 mx-auto lg:h-screen lg:items-center lg:flex">
         <div class="max-w-xl">

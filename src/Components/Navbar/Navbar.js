@@ -57,9 +57,9 @@ const Navbar = () => {
             </li>
           </ul>
         </div>
-        <div>
+        <Link to="/">
           <img className="w-20" src={logo} alt="logo" />
-        </div>
+        </Link>
       </div>
       <div class="navbar-end font-semibold">
         <ul class="menu menu-horizontal p-0 hidden lg:flex">
@@ -94,10 +94,10 @@ const Navbar = () => {
         </ul>
         <div className="flex items-center">
           <Link
-            to="/"
+            to="/signup"
             className="bg-green-600 hover:bg-green-500 text-white shadow-green-300 shadow-lg px-4 py-[7px] mx-2 rounded-md hidden md:flex"
           >
-            Get Started
+            Sign Up
           </Link>
           <div class="dropdown dropdown-end">
             <label tabindex="0" class="btn btn-ghost btn-circle avatar">
