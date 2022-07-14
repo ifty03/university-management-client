@@ -55,21 +55,20 @@ const SignUp = () => {
           <h2 className="text-3xl mb-2 pl-5">Get Started With Me 🔐</h2>
           <p className="opacity-50 mb-8 pl-5">Please Sign Up here !</p>
           <div className="bg-opacity-30 p-5 rounded-lg bg-slate-700">
-            <Social />
+            <Social setCustomError={setCustomError} />
             <div className="flex items-center gap-3 text-lg my-5">
               <div className="w-full h-[1px] bg-gray-400"></div>
               or
               <div className="w-full h-[1px] bg-gray-400"></div>
             </div>
             {/* error message */}
-            {customError ||
-              (error?.message && (
-                <Alert
-                  error={error}
-                  setCustomError={setCustomError}
-                  customError={customError}
-                ></Alert>
-              ))}
+            {(customError || error) && (
+              <Alert
+                error={error}
+                setCustomError={setCustomError}
+                customError={customError}
+              ></Alert>
+            )}
             {/* sign up from */}
             <div class="card flex-shrink-0 w-full">
               <form onSubmit={(e) => handelSubmit(e)} class="card-body">
