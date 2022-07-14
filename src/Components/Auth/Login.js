@@ -4,10 +4,27 @@ import Alert from "../Alert";
 import Social from "../Social";
 import { toast } from "react-hot-toast";
 import loginImg from "../../Assets/Images/login2.png";
+import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
+import auth from "../../firebase.init";
+import Loading from "../../Shared/Loading/Loading";
 
 const Login = () => {
   const [customError, setCustomError] = useState("");
-  const handelSubmit = (e) => {};
+  const [signInWithEmailAndPassword, user, loading, error] =
+    useSignInWithEmailAndPassword(auth);
+
+  const handelSubmit = async (e) => {
+    e.preventDefault();
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+    await signInWithEmailAndPassword(email, password);
+    if (error) {
+      setCustomError(error.message);
+    }
+  };
+  if (loading) {
+    return <Loading />;
+  }
   return (
     <div
       class="hero min-h-screen"
@@ -32,7 +49,7 @@ const Login = () => {
         </div>
         <div>
           <h2 className="text-3xl mb-2 pl-5">Get Started With Me 🔐</h2>
-          <p className="opacity-50 mb-8 pl-5">Please Sign Up here !</p>
+          <p className="opacity-50 mb-8 pl-5">Please Login here !</p>
           <div className="bg-opacity-30 p-5 rounded-lg bg-slate-700">
             <Social setCustomError={setCustomError} />
             <div className="flex items-center gap-3 text-lg my-5">
@@ -42,13 +59,13 @@ const Login = () => {
             </div>
             {/* error message */}
 
-            {/* {(customError || error) && (
+            {(customError || error) && (
               <Alert
                 error={error}
                 setCustomError={setCustomError}
                 customError={customError}
               ></Alert>
-            )} */}
+            )}
 
             {/* sign up from */}
             <div class="card flex-shrink-0 w-full">
@@ -95,8 +112,8 @@ const Login = () => {
                   </button>
                   <p className="mt-2">
                     Not a student?{" "}
-                    <Link className="text-green-500 link" to="/login">
-                      Sign Up
+                    <Link className="text-green-500 link" to="/signUp">
+                      Login
                     </Link>
                   </p>
                 </div>

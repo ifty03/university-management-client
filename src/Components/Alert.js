@@ -34,7 +34,9 @@ const Alert = ({ error, setCustomError, customError }) => {
       </div>
 
       <button
-        onClick={() => setCustomError("")}
+        onClick={() => {
+          setCustomError("");
+        }}
         class="opacity-90"
         type="button"
       >
