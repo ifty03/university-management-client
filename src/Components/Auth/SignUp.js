@@ -6,6 +6,7 @@ import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { toast } from "react-hot-toast";
 import Alert from "../Alert";
 import Loading from "../../Shared/Loading/Loading";
+import { Link } from "react-router-dom";
 
 const SignUp = () => {
   const [customError, setCustomError] = useState("");
@@ -81,6 +82,7 @@ const SignUp = () => {
                   <input
                     type="text"
                     name="email"
+                    required
                     placeholder="email"
                     class="input border border-slate-400 bg-slate-800  text-white"
                   />
@@ -94,6 +96,7 @@ const SignUp = () => {
                   <input
                     type="text"
                     name="password"
+                    required
                     placeholder="password"
                     class="input border border-slate-400 bg-slate-800  text-white"
                   />
@@ -105,6 +108,7 @@ const SignUp = () => {
                   <input
                     type="text"
                     name="rePassword"
+                    required
                     placeholder="Re-Type-Password"
                     class="input border border-slate-400 bg-slate-800  text-white"
                   />
@@ -115,9 +119,18 @@ const SignUp = () => {
                   </label>
                 </div>
                 <div class="form-control mt-2">
-                  <button type="submit" class="btn btn-success">
-                    Login
+                  <button
+                    type="submit"
+                    class="btn bg-green-600 hover:bg-green-500"
+                  >
+                    Sign Up
                   </button>
+                  <p className="mt-2">
+                    Already have an account?{" "}
+                    <Link className="text-green-500 link" to="/login">
+                      Login
+                    </Link>
+                  </p>
                 </div>
               </form>
             </div>
