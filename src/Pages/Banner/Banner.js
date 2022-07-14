@@ -18,13 +18,13 @@ const Banner = () => {
             Develop a <span className="text-green-500">position</span> for
             learning new things.
           </h1>
-          <p className="md:text-lg text-white mt-8">
+          <p data-aos="fade-up" className="md:text-lg text-white mt-8">
             Lorem, ipsum dolor sit amet consectetur adipisicing elit. Cumque
             deserunt, soluta dolorum deleniti nesciunt id neque sunt quibusdam
             labore similique!
           </p>
 
-          <div class="flex gap-4 mt-8 text-center">
+          <div data-aos="fade-up" class="flex gap-4 mt-8 text-center">
             <a
               class="block w-full px-12 py-3 text-sm font-medium text-white rounded bg-green-600 sm:w-auto active:bg-green-500 hover:bg-green-700 focus:outline-none focus:ring hover:shadow-green-500 shadow-lg"
               href="/get-started"

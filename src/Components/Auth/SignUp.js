@@ -1,8 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
 import loginImg from "../../Assets/Images/login2.png";
+import auth from "../../firebase.init";
 import Social from "../Social";
+import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
+import { toast } from "react-hot-toast";
+import Alert from "../Alert";
+import Loading from "../../Shared/Loading/Loading";
 
 const SignUp = () => {
+  const [customError, setCustomError] = useState("");
+  const [createUserWithEmailAndPassword, user, loading, error] =
+    useCreateUserWithEmailAndPassword(auth);
+  const handelSubmit = async (e) => {
+    e.preventDefault();
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+    const rePassword = e.target.rePassword.value;
+    if (password === rePassword) {
+      setCustomError("");
+      await createUserWithEmailAndPassword(email, password);
+      toast.success("user created successfully 🎉");
+    } else {
+      setCustomError("Please input the same password !");
+      toast.error("please input the same password !");
+    }
+  };
+  if (loading) {
+    return <Loading />;
+  }
+
   return (
     <div
       class="hero min-h-screen"
@@ -35,38 +61,66 @@ const SignUp = () => {
               or
               <div className="w-full h-[1px] bg-gray-400"></div>
             </div>
+            {/* error message */}
+            {customError ||
+              (error?.message && (
+                <Alert
+                  error={error}
+                  setCustomError={setCustomError}
+                  customError={customError}
+                ></Alert>
+              ))}
             {/* sign up from */}
             <div class="card flex-shrink-0 w-full">
-              <div class="card-body">
+              <form onSubmit={(e) => handelSubmit(e)} class="card-body">
                 <div class="form-control">
                   <label class="label">
-                    <span class="label-text text-white">Email</span>
+                    <span class="label-text text-white">
+                      Email <span className="text-warning">*</span>
+                    </span>
                   </label>
                   <input
                     type="text"
+                    name="email"
                     placeholder="email"
                     class="input border border-slate-400 bg-slate-800  text-white"
                   />
                 </div>
                 <div class="form-control">
                   <label class="label">
-                    <span class="label-text text-white">Password</span>
+                    <span class="label-text text-white">
+                      Password <span className="text-warning">*</span>
+                    </span>
                   </label>
                   <input
                     type="text"
+                    name="password"
                     placeholder="password"
                     class="input border border-slate-400 bg-slate-800  text-white"
                   />
                   <label class="label">
-                    <a href="#" class="label-text-alt link link-hover">
+                    <span class="label-text text-white">
+                      Re-Type-Password <span className="text-warning">*</span>
+                    </span>
+                  </label>
+                  <input
+                    type="text"
+                    name="rePassword"
+                    placeholder="Re-Type-Password"
+                    class="input border border-slate-400 bg-slate-800  text-white"
+                  />
+                  <label class="label">
+                    <p class="label-text-alt link link-hover text-white">
                       Forgot password?
-                    </a>
+                    </p>
                   </label>
                 </div>
-                <div class="form-control mt-6">
-                  <button class="btn btn-primary">Login</button>
+                <div class="form-control mt-2">
+                  <button type="submit" class="btn btn-success">
+                    Login
+                  </button>
                 </div>
-              </div>
+              </form>
             </div>
           </div>
         </div>
