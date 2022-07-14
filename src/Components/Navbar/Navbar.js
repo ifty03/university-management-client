@@ -1,8 +1,13 @@
+import { signOut } from "firebase/auth";
 import React from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
 import { Link } from "react-router-dom";
 import logo from "../../Assets/Images/logo.png";
+import auth from "../../firebase.init";
+import { toast } from "react-hot-toast";
 
 const Navbar = () => {
+  const [user] = useAuthState(auth);
   return (
     <div class="navbar bg-base-100 flex justify-between lg:px-14 md:px-10 px-3">
       <div class="navbar-start">
@@ -30,75 +35,57 @@ const Navbar = () => {
             <li>
               <a>Item 1</a>
             </li>
-            <li tabindex="0">
-              <a class="justify-between">
-                Parent
-                <svg
-                  class="fill-current"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" />
-                </svg>
-              </a>
-              <ul class="p-2">
-                <li>
-                  <a>Submenu 1</a>
-                </li>
-                <li>
-                  <a>Submenu 2</a>
-                </li>
-              </ul>
+            <li>
+              <a>Item 2</a>
             </li>
             <li>
               <a>Item 3</a>
             </li>
+
+            <li>
+              <a>Item 4</a>
+            </li>
           </ul>
         </div>
-        <div>
+        <Link to="/">
           <img className="w-20" src={logo} alt="logo" />
-        </div>
+        </Link>
       </div>
       <div class="navbar-end font-semibold">
         <ul class="menu menu-horizontal p-0 hidden lg:flex">
           <li>
             <a>Item 1</a>
           </li>
-          <li tabindex="0">
-            <a>
-              Parent
-              <svg
-                class="fill-current"
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-              >
-                <path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" />
-              </svg>
-            </a>
-            <ul class="p-2">
-              <li>
-                <a>Submenu 1</a>
-              </li>
-              <li>
-                <a>Submenu 2</a>
-              </li>
-            </ul>
+          <li>
+            <a>Item 2</a>
           </li>
           <li>
             <a>Item 3</a>
           </li>
+
+          <li>
+            <a>Item 4</a>
+          </li>
         </ul>
         <div className="flex items-center">
-          <Link
-            to="/"
-            className="bg-green-600 hover:bg-green-500 text-white shadow-green-300 shadow-lg px-4 py-[7px] mx-2 rounded-md hidden md:flex"
-          >
-            Get Started
-          </Link>
+          {user ? (
+            <button
+              onClick={async () => {
+                await signOut(auth);
+                toast.success("SignOut successfully done !");
+              }}
+              className="bg-red-600 hover:bg-red-500 text-white shadow-red-300 shadow-lg px-4 py-[7px] mx-2 rounded-md hidden md:flex"
+            >
+              Log Out
+            </button>
+          ) : (
+            <Link
+              to="/signup"
+              className="bg-green-600 hover:bg-green-500 text-white shadow-green-300 shadow-lg px-4 py-[7px] mx-2 rounded-md hidden md:flex"
+            >
+              Sign Up
+            </Link>
+          )}
           <div class="dropdown dropdown-end">
             <label tabindex="0" class="btn btn-ghost btn-circle avatar">
               <div class="w-10 rounded-full">
