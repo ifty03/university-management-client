@@ -112,11 +112,6 @@ const SignUp = () => {
                     placeholder="Re-Type-Password"
                     class="input border border-slate-400 bg-slate-800  text-white"
                   />
-                  <label class="label">
-                    <p class="label-text-alt link link-hover text-white">
-                      Forgot password?
-                    </p>
-                  </label>
                 </div>
                 <div class="form-control mt-2">
                   <button
