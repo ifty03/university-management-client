@@ -114,6 +114,7 @@ const Login = () => {
                             error: "Reset email does not send",
                             success: "Send reset email....",
                           });
+                          setCustomError("Please also check your spam folder");
                         } else {
                           toast.error("please input your email");
                         }
