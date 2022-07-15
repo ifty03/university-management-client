@@ -24,6 +24,7 @@ const Login = () => {
     const email = e.target.email.value;
     const password = e.target.password.value;
     await signInWithEmailAndPassword(email, password);
+    toast.success("Login successfully done 🥰");
     if (error) {
       setCustomError(error.message);
     }
