@@ -4,11 +4,17 @@ import Alert from "../Alert";
 import Social from "../Social";
 import { toast } from "react-hot-toast";
 import loginImg from "../../Assets/Images/login2.png";
-import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
+import {
+  useSendPasswordResetEmail,
+  useSignInWithEmailAndPassword,
+} from "react-firebase-hooks/auth";
 import auth from "../../firebase.init";
 import Loading from "../../Shared/Loading/Loading";
 
 const Login = () => {
+  const [email, setEmail] = useState("");
+  const [sendPasswordResetEmail, sending, vError] =
+    useSendPasswordResetEmail(auth);
   const [customError, setCustomError] = useState("");
   const [signInWithEmailAndPassword, user, loading, error] =
     useSignInWithEmailAndPassword(auth);
@@ -79,6 +85,7 @@ const Login = () => {
                   <input
                     type="text"
                     name="email"
+                    onChange={(e) => setEmail(e.target.value)}
                     required
                     placeholder="email"
                     class="input border border-slate-400 bg-slate-800  text-white"
@@ -98,7 +105,22 @@ const Login = () => {
                     class="input border border-slate-400 bg-slate-800  text-white"
                   />
                   <label class="label">
-                    <p class="label-text-alt link link-hover text-white">
+                    <p
+                      onClick={async () => {
+                        // const forget = sendPasswordResetEmail(email);
+                        if (email) {
+                          await toast.promise(sendPasswordResetEmail(email), {
+                            loading: "Sending....",
+                            error: "Reset email does not send",
+                            success: "Send reset email....",
+                          });
+                        } else {
+                          toast.error("please input your email");
+                        }
+                        // sendPasswordResetEmail(email);
+                      }}
+                      class="label-text-alt link link-hover text-white"
+                    >
                       Forgot password?
                     </p>
                   </label>
@@ -108,12 +130,12 @@ const Login = () => {
                     type="submit"
                     class="btn bg-green-600 hover:bg-green-500"
                   >
-                    Sign Up
+                    Login
                   </button>
                   <p className="mt-2">
                     Not a student?{" "}
                     <Link className="text-green-500 link" to="/signUp">
-                      Login
+                      Sign Up
                     </Link>
                   </p>
                 </div>
